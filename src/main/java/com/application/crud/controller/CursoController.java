@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -27,7 +28,7 @@ public class CursoController {
         this.repository = repository;
     }
 
-    @PutMapping(value = "/{id}")
+    @PutMapping(value = "update/{id}")
     public ResponseEntity<CursoModel> update(Long id, CursoModel curso) {
         return repository.findById(id)
                 .map(record -> {
@@ -43,7 +44,7 @@ public class CursoController {
         return repository.findAll();
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(Long id) {
         repository.findById(id)
@@ -53,7 +54,7 @@ public class CursoController {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/findById/{id}")
+    @GetMapping("/findById/{id}")
     public ResponseEntity<CursoModel> findById(Long id) {
         return repository.findById(id)
                 .map(record -> ResponseEntity.ok().body(record))
