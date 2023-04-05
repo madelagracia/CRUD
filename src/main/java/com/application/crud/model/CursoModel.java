@@ -2,6 +2,11 @@ package com.application.crud.model;
 
 import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class CursoModel {
 
@@ -13,12 +18,6 @@ public class CursoModel {
     private String descricao;
 
     private String ementa;
-
-    public CursoModel(Long id, String descricao, String ementa) {
-        this.id = id;
-        this.descricao = descricao;
-        this.ementa = ementa;
-    }
 
     public Long getId() {
         return id;
@@ -44,7 +43,4 @@ public class CursoModel {
         this.ementa = ementa;
     }
 
-    
-
- 
 }

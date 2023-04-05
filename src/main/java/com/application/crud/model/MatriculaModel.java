@@ -4,9 +4,11 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class MatriculaModel {
 
@@ -24,15 +26,6 @@ public class MatriculaModel {
     private AlunoModel aluno;
 
   
-
-    public MatriculaModel(Long id, CursoModel curso, AlunoModel aluno) {
-        this.id = id;
-        this.curso = curso;
-        this.aluno = aluno;
-    }
-
-
-
     public Long getId() {
         return id;
     }
