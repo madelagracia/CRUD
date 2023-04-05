@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +31,7 @@ public class CursoController {
     }
 
     @PutMapping(value = "update/{id}")
-    public ResponseEntity<CursoModel> update(Long id, CursoModel curso) {
+    public ResponseEntity<CursoModel> update(@PathVariable("id")Long id, @RequestBody CursoModel curso) {
         return repository.findById(id)
                 .map(record -> {
                     record.setDescricao(curso.getDescricao());
@@ -46,7 +48,7 @@ public class CursoController {
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(Long id) {
+    public void delete(@PathVariable("id")Long id) {
         repository.findById(id)
                 .map(record -> {
                     repository.deleteById(id);
@@ -55,14 +57,14 @@ public class CursoController {
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<CursoModel> findById(Long id) {
+    public ResponseEntity<CursoModel> findById(@PathVariable("id")Long id) {
         return repository.findById(id)
                 .map(record -> ResponseEntity.ok().body(record))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping("/create")
-    public CursoModel create(CursoModel curso) {
+    public CursoModel create(@RequestBody CursoModel curso) {
         return repository.save(curso);
     }
 
